@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Clock</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="container">
+    <div id="currenttimeintro">Current date/time:</div>
+    <div id="currentdt"></div>
+    <div id="wearenowintro"></div>
+    <div id="wearenowlabel"></div>
+    <div id="wearenowtimerange"></div>
+    <div id="wearenow"></div>
+    <div id="countdowntointro"></div>
+    <div id="countdowntolabel"></div>
+    <div id="countdown"></div>
+  </div>
+  <div id="containersched">
+    <div id="schedule"></div>
+    <div id="settings-controls">
+      <button id="settings-button">Settings</button>
+    </div>
+    <div id="color-controls">
+      Foreground: <input type="color" id="foreground" value="#000000">&nbsp;&nbsp;
+      Background: <input type="color" id="background" value="#ffffff">&nbsp;&nbsp;
+      <button type="button" id="set-colors">Set colors</button>
+    </div>
+    <div id="time-adjust">
+      Time adjustment in seconds: 
+      <input type="number" id="timeadj" value="0" min="-300" max="300" />
+      <button type="button" id="set-timeadj">Set</button>
+    </div>
+  </div>
+  <div id="version-info" style="
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  color: #666;
+  font-family: sans-serif;
+">Version: loading...</div>
+  <script src="renderer.js"></script>
+</body>
+</html>
