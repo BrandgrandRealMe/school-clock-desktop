@@ -1,0 +1,41 @@
+{
+    "name": "school-clock",
+    "version": "1.0.0",
+    "description": "School Clock PWA for Mac and Android",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder",
+        "build:mac": "electron-builder --mac --x64 --arm64",
+        "build:win": "electron-builder --win --x64",
+        "release": "electron-builder --publish always"
+    },
+    "author": "Brandon",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^28.0.0",
+        "electron-builder": "^24.6.4"
+    },
+    "build": {
+        "appId": "com.cyberlabs.schoolclock",
+        "productName": "School Clock",
+        "mac": {
+            "icon": "build/icons/icon.icns",
+            "category": "public.app-category.utilities",
+            "target": "dmg",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist",
+            "artifactName": "${productName}-${version}-${arch}.${ext}"
+        },
+        "win": {
+            "target": "nsis",
+            "icon": "build/icons/icon.ico",
+            "artifactName": "${productName}-${version}-setup.${ext}"
+        },
+        "publish": {
+            "provider": "github"
+        }
+    }
+}
