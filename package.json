@@ -6,8 +6,8 @@
     "scripts": {
         "start": "electron .",
         "build": "electron-builder",
-        "build:mac": "electron-builder --mac --x64 --arm64",
-        "build:win": "electron-builder --win --x64",
+        "build:mac": "electron-builder --mac --x64 --arm64 --publish never",
+        "build:win": "electron-builder --win --x64 --publish never",
         "release": "electron-builder --publish always"
     },
     "author": "Brandon",
@@ -19,6 +19,10 @@
     "build": {
         "appId": "com.cyberlabs.schoolclock",
         "productName": "School Clock",
+        "publish": {
+            "provider": "github",
+            "releaseType": "release"
+          },
         "mac": {
             "icon": "build/icons/icon.icns",
             "category": "public.app-category.utilities",
@@ -33,9 +37,6 @@
             "target": "nsis",
             "icon": "build/icons/icon.ico",
             "artifactName": "${productName}-${version}-setup.${ext}"
-        },
-        "publish": {
-            "provider": "github"
         }
     }
 }
