@@ -1,21 +1,18 @@
 name: Release Build
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags (v1.0.0, v2.3.4, etc.)
 
 permissions:
   contents: write
-  packages: write
   actions: read
 
 jobs:
   build:
     name: Build Assets
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
-      packages: write
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -55,21 +52,24 @@ jobs:
           dist/make/*.exe
 
   publish:
-    name: Attach to Release
+    name: Create Release
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
         path: ./artifacts
 
-    - name: Attach to Release
+    - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: ${{ github.ref_name }}  # Uses the pushed tag (v1.0.0)
+        name: Release ${{ github.ref_name }}
         files: |
           artifacts/macOS-build/*
           artifacts/Windows-build/*
+        draft: false
+        prerelease: false
