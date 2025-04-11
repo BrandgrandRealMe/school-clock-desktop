@@ -135,3 +135,23 @@ body {
       width: 100%;
     }
   }
+
+  footer a {
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  footer a:hover {
+    color: #004499;
+    text-decoration: underline;
+  }
+  
+  /* Dark mode support */
+  .dark-mode footer {
+    color: #aaa;
+    background-color: rgba(0,0,0,0.5) !important;
+  }
+  
+  .dark-mode footer a {
+    color: #4da6ff;
+  }

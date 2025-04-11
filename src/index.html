@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <div id="container">
     <div id="currenttimeintro">Current date/time:</div>
@@ -30,19 +32,28 @@
       <button type="button" id="set-colors">Set colors</button>
     </div>
     <div id="time-adjust">
-      Time adjustment in seconds: 
+      Time adjustment in seconds:
       <input type="number" id="timeadj" value="0" min="-300" max="300" />
       <button type="button" id="set-timeadj">Set</button>
     </div>
   </div>
-  <div id="version-info" style="
+  <footer style="
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  font-size: 0.8em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
   color: #666;
-  font-family: sans-serif;
-">Version: loading...</div>
+  background-color: rgba(255,255,255,0.8);
+">
+    <div>
+      School Clock v<span id="app-version"></span> •
+      Created by <a href="https://why.brandgrand.rocks" target="_blank" style="color: #0066cc;">Brandon (BrandgrandReal)</a>
+    </div>
+  </footer>
   <script src="renderer.js"></script>
 </body>
+
 </html>
