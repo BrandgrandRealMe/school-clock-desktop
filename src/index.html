@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>School Clock</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
   <link rel="manifest" href="manifest.json">
 </head>
 
@@ -47,12 +48,26 @@
   font-size: 12px;
   color: #666;
   background-color: rgba(255,255,255,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 ">
-    <div>
-      School Clock v<span id="app-version"></span> •
-      Created by <a href="https://why.brandgrand.rocks" target="_blank" style="color: #0066cc;">Brandon (BrandgrandReal)</a>
-    </div>
-  </footer>
+  <span>School Clock v<span id="app-version"></span></span>
+  <span>•</span>
+  <a href="https://why.brandgrand.rocks" target="_blank" style="color: inherit;">
+    <i class="fas fa-user"></i> Brandon (BrandgrandReal)
+  </a>
+  <span>•</span>
+  <div class="social-links">
+    <a href="https://github.com/BrandgrandRealMe" target="_blank" style="color: inherit;">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="mailto:brandon@brandgrand.rocks" style="color: inherit;">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+</footer>
   <script src="renderer.js"></script>
 </body>
 

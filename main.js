@@ -88,6 +88,7 @@ class WindowManager {
             modal: true,
             webPreferences: {
                 preload: path.join(__dirname, 'preload.js'),
+                webSecurity: false, // Required for file protocol
                 nodeIntegration: false,
                 contextIsolation: true
             }
@@ -126,8 +127,14 @@ ipcMain.on('open-settings', () => {
 });
 
 ipcMain.handle('save-schedule', (event, schedule) => {
+    try {
     saveScheduleToFile(schedule);
     return { success: true };
+    } catch (error) {
+        console.error('Failed to save schedule:', error);
+        return { success: false, error: error.message };
+      }
+    
 });
 
 ipcMain.handle('load-schedule', () => {

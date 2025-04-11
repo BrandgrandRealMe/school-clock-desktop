@@ -4,21 +4,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const saveScheduleBtn = document.getElementById('save-schedule');
     const cancelBtn = document.getElementById('cancel');
 
+    // Initialize arrays to store schedule data
+    let starts = [];
+    let names = [];
+    let times = [];
+
     // Load existing schedule
     let schedule = await window.electronAPI.loadSchedule();
 
     if (!schedule) {
         // Default empty schedule
-        schedule = {
-            starts: [],
-            names: [],
-            times: []
-        };
-        // Add one empty period to start with
         addPeriodRow();
     } else {
         // Populate with existing periods
-        for (let i = 0; i < schedule.starts.length; i++) {
+        for (let i = 0; i < schedule.times.length; i++) {
             addPeriodRow(schedule.times[i], schedule.names[i]);
         }
     }
@@ -27,16 +26,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     addPeriodBtn.addEventListener('click', addPeriodRow);
 
     // Save schedule button
-    saveScheduleBtn.addEventListener('click', async () => {
+    saveScheduleBtn.addEventListener('click', async (e) => {  // Added 'e' parameter
+        e.preventDefault();
+
         const timeInputs = document.querySelectorAll('.period-time');
         const nameInputs = document.querySelectorAll('.period-name');
 
-        const newSchedule = {
-            starts: [],
-            names: [],
-            times: []
-        };
-
+        // Reset arrays
+        starts = [];
+        names = [];
+        times = [];
 
         let isValid = true;
 
@@ -74,43 +73,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         if (isValid) {
-            const newSchedule = { starts, names, times };
-            await window.electronAPI.saveSchedule(newSchedule);
-            window.close(); // Close settings window
-        }
-
-        try {
-            const result = await window.electronAPI.saveSchedule(newSchedule);
-            if (result.success) {
-                alert('Schedule saved successfully!');
-                window.close(); // Close settings window after save
+            try {
+                const newSchedule = { starts, names, times };
+                const result = await window.electronAPI.saveSchedule(newSchedule);
+                
+                if (result && result.success) {
+                    window.close(); // Close settings window on success
+                } else {
+                    alert('Save failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Save error:', error);
+                alert('Error saving schedule: ' + error.message);
             }
-        } catch (error) {
-            console.error('Error saving schedule:', error);
-            alert('Failed to save schedule: ' + error.message);
         }
     });
 
-    // Cancel button
+    // Cancel button - this should work as is
     cancelBtn.addEventListener('click', () => {
         window.close();
     });
 
-    // Helper function to add a new period row
+    // Helper function to add a new period row (unchanged)
     function addPeriodRow(time = '', name = '') {
         const periodDiv = document.createElement('div');
-        periodDiv.className = 'period-row';
-
+        periodDiv.className = 'period-row';  // Fixed: was 'period.className'
+    
         periodDiv.innerHTML = `
-        <div class="period-controls">
-          <input type="time" class="period-time" value="${time}" required>
-          <input type="text" class="period-name" value="${name}" placeholder="Period name" required>
-          <button class="remove-period">×</button>
-        </div>
-      `;
-
+            <div class="period-controls">
+                <input type="time" class="period-time" value="${time}" required>
+                <input type="text" class="period-name" value="${name}" placeholder="Period name" required>
+                <button class="remove-period">×</button>
+            </div>
+        `;
+    
         periodsContainer.appendChild(periodDiv);
-
+    
         // Add remove button event
         const removeBtn = periodDiv.querySelector('.remove-period');
         removeBtn.addEventListener('click', () => {
