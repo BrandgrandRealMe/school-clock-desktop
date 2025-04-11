@@ -104,6 +104,10 @@ class WindowManager {
 
 const windowManager = new WindowManager();
 
+if (!app.isPackaged) {
+    app.dock.setIcon(path.join(__dirname, 'icon.png'));
+  }
+  
 app.whenReady().then(() => {
     loadScheduleFromFile();
     windowManager.createMainWindow();
