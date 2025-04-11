@@ -34,8 +34,9 @@ jobs:
       run: npm ci
 
     - name: Build application
+      shell: bash
       run: |
-        if [ "$RUNNER_OS" == "macOS" ]; then
+        if [[ "$RUNNER_OS" == "macOS" ]]; then
           npm run build:mac
         else
           npm run build:win
